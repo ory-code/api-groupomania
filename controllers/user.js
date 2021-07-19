@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt")
 //const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
 
-
 exports.signup = (req, res, next) => {
     if (!req.body.password || !req.body.email) {
       return res.status(400).json({ error: "bad request" });
