@@ -1,0 +1,19 @@
+{
+  "name": "backend-p7",
+  "version": "1.0.0",
+  "description": "p7 Api  with Swagger, Node.js, Express and Mysql",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ory-code/backend-p7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ory-code/backend-p7/issues"
+  },
+  "homepage": "https://github.com/ory-code/backend-p7#readme"
+}
