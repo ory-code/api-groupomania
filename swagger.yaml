@@ -1,0 +1,18 @@
+paths:
+  /api/auth/signup:
+    post:
+      description: welcome to swagger
+      summary: création utilisateur
+      parameters:
+      - in: body
+        name: toto
+        description: test
+        required: true
+      responses:
+        200:
+          description: response
+
+
+  /toto:
+    post:
+      description: post créée !
