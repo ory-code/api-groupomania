@@ -1,18 +1,85 @@
 paths:
   /api/auth/signup:
     post:
-      description: welcome to swagger
-      summary: création utilisateur
+      description: welcome in to Groupomania
+      summary: creation of an account
       parameters:
-      - in: body
-        name: toto
-        description: test
-        required: true
+        - in: body
+          name:
+            - email
+            - name
+            - firstname
+          description: contact acces
+          required: true
       responses:
         200:
           description: response
 
-
-  /toto:
+  /auth/login:
     post:
-      description: post créée !
+      description: Welcome back in Groupomania
+      summary: login in user account
+      parameters:
+        - in: body
+          name:
+            - email
+            - name
+            - firstname
+          description: contact acces
+          required: true
+      responses:
+        200:
+          description: response
+
+  /api/groupomania:
+    post:
+      description: share a post with you're coworker
+      summary: create and post sommething
+      parameters:
+        - in: body
+          name:
+            - title
+            - text
+            - img
+            - like
+            - share
+          required: true
+      response:
+        201:
+        description: response
+
+  /api/groupomania/all:
+    get:
+      description: get a post
+      summary: read post
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response
+
+  /api/groupomania/post/id:
+    put:
+      description: update a post
+      summary: update your post
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response
+
+  /api/groupomania/id:
+    delete:
+      description: delete a post
+      summary: delete your post
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response

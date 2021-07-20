@@ -9,7 +9,7 @@ const options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "Hello World",
+      title: "Groupomania Api",
       version: "1.0.0",
     },
   },
