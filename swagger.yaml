@@ -1,0 +1,207 @@
+paths:
+  /api/auth/signup:
+    post:
+      description: welcome in to Groupomania
+      summary: creation of an account
+      parameters:
+        - in: body
+          name:
+            - email
+            - name
+            - firstname
+          description: contact acces
+          required: true
+      responses:
+        200:
+          description: response
+
+  /auth/login:
+    post:
+      description: Welcome back in Groupomania
+      summary: login in user account
+      parameters:
+        - in: body
+          name:
+            - email
+            - name
+            - firstname
+          description: contact acces
+          required: true
+      responses:
+        200:
+          description: response
+
+  /api/groupomania:
+    post:
+      description: create a post for you're coworker
+      summary: create and post sommething
+      parameters:
+        - in: body
+          name:
+            - title
+            - text
+            - img
+            - like
+            - share
+          required: true
+      response:
+        201:
+        description: response
+
+  /api/groupomania/all:
+    get:
+      description: get a post
+      summary: read post
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response
+
+  /api/groupomania/post/id:
+    put:
+      description: update a post
+      summary: update your post
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response
+
+  /api/groupomania/post/delete/id:
+    delete:
+      description: delete a post
+      summary: delete your post
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response
+
+  /api/groupomania/profile:
+    get:
+      description: get a profile
+      summary: get all profile
+      parameters:
+        - in: body
+          name:
+            - profile
+      response:
+        200:
+        description: response
+  /api/groupomania/profil/id:
+    get:
+      description: get you're profil
+      summary: get you're profil
+      parameters:
+        - in: body
+          name:
+            - my profil
+      response:
+        200:
+        description: response
+  /api/groupomania/profil/update/id:
+    put:
+      description: update you're profil
+      summary: update you're profil
+      parameters:
+        - in: body
+          name:
+            - update my profil
+      response:
+        200:
+        description: response
+  /api/groupomania/profil/delete/id:
+    delete:
+      description: delete you're profil
+      summary: delete you're profil
+      parameters:
+        - in: body
+          name:
+            - delete my profil
+      response:
+        200:
+        description: response
+  /api/groupomania/comment:
+    get:
+      description: get all comment
+      summary: get all comment
+      parameters:
+        - in: body
+          name:
+            - get all comment
+      response:
+        200:
+        description: response
+  /api/groupomania/comment/id:
+    get:
+      description: get one comment
+      summary: get one comment
+      parameters:
+        - in: body
+          name:
+            - get one comment
+      response:
+        200:
+        description: response
+  /api/groupomania/post/comment/postid:
+    post:
+      description: post one comment
+      summary: post one comment
+      parameters:
+        - in: body
+          name:
+            - post one comment
+      response:
+        200:
+        description: response
+  /api/groupomania/update/comment/postid:
+    pust:
+      description: update one comment
+      summary: update one comment
+      parameters:
+        - in: body
+          name:
+            - update one comment
+      response:
+        200:
+        description: response
+  /api/groupomania/delete/comment/postid:
+    delete:
+      description: delete one comment
+      summary: delete one comment
+      parameters:
+        - in: body
+          name:
+            - delete one comment
+      response:
+        200:
+        description: response
+  /api/groupomania/like/postid/userid:
+    get:
+      description: like one post
+      summary: like one post
+      parameters:
+        - in: body
+          name:
+            - like one post
+      response:
+        200:
+        description: response
+  /api/groupomania/dislike/postid/userid:
+    get:
+      description: dislike one post
+      summary: dislike one post
+      parameters:
+        - in: body
+          name:
+            - dislike one post
+      response:
+        200:
+        description: response
