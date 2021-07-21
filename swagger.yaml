@@ -15,7 +15,7 @@ paths:
         200:
           description: response
 
-  /auth/login:
+  /api/auth/login:
     post:
       description: Welcome back in Groupomania
       summary: login in user account
@@ -31,7 +31,7 @@ paths:
         200:
           description: response
 
-  /api/groupomania:
+  /api/main:
     post:
       description: create a post for you're coworker
       summary: create and post sommething
@@ -48,7 +48,7 @@ paths:
         201:
         description: response
 
-  /api/groupomania/all:
+  /api/main/all:
     get:
       description: get a post
       summary: read post
@@ -60,7 +60,7 @@ paths:
         200:
         description: response
 
-  /api/groupomania/post/id:
+  /api/post/id:
     put:
       description: update a post
       summary: update your post
@@ -72,7 +72,7 @@ paths:
         200:
         description: response
 
-  /api/groupomania/post/delete/id:
+  /api/post/delete/id:
     delete:
       description: delete a post
       summary: delete your post
@@ -84,7 +84,7 @@ paths:
         200:
         description: response
 
-  /api/groupomania/profile:
+  /api/profile:
     get:
       description: get a profile
       summary: get all profile
@@ -95,7 +95,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/profil/id:
+  /api/profil/id:
     get:
       description: get you're profil
       summary: get you're profil
@@ -106,7 +106,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/profil/update/id:
+  /api/profil/update/id:
     put:
       description: update you're profil
       summary: update you're profil
@@ -117,7 +117,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/profil/delete/id:
+  /api/profil/delete/id:
     delete:
       description: delete you're profil
       summary: delete you're profil
@@ -128,7 +128,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/comment:
+  /api/comment:
     get:
       description: get all comment
       summary: get all comment
@@ -139,7 +139,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/comment/id:
+  /api/comment/id:
     get:
       description: get one comment
       summary: get one comment
@@ -150,7 +150,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/post/comment/postid:
+  /api/post/comment/postid:
     post:
       description: post one comment
       summary: post one comment
@@ -161,8 +161,8 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/update/comment/postid:
-    pust:
+  /api/update/comment/postid:
+    put:
       description: update one comment
       summary: update one comment
       parameters:
@@ -172,7 +172,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/delete/comment/postid:
+  /api/delete/comment/postid:
     delete:
       description: delete one comment
       summary: delete one comment
@@ -183,7 +183,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/like/postid/userid:
+  /api/like/postid/userid:
     get:
       description: like one post
       summary: like one post
@@ -194,7 +194,7 @@ paths:
       response:
         200:
         description: response
-  /api/groupomania/dislike/postid/userid:
+  /api/dislike/postid/userid:
     get:
       description: dislike one post
       summary: dislike one post
