@@ -31,6 +31,18 @@ paths:
         200:
           description: response
 
+  /api/auth/delete:
+    delete:
+      description: delete your profil
+      summary: delete your profil
+      parameters:
+        - in: body
+          name:
+            - profil
+      response:
+        200:
+        description: response
+
   /api/main:
     post:
       description: create a post for you're coworker
