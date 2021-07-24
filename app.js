@@ -4,7 +4,8 @@ const userRoutes = require("./routes/user");
 const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
-const {Sequelize} = require("sequelize")
+const { Sequelize } = require("sequelize");
+const db = require("./middleware/db_prog");
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
 app.use("/api/user", userRoutes);
+
 // app.get("/api-docs.json", (req, res) => {
 //   res.setHeader("Content-Type", "application/json");
 //   res.send(openapiSpecification);
