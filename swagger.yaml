@@ -1,153 +1,307 @@
 paths:
+  # /api/auth/signup:
+  #   post:
+  #     description: welcome in to Groupomania
+  #     summary: creation of an account
+  #     tags:
+  #       - Authentification
+  #     parameters:
+  #       - in: body
+  #         name:
+  #           - email
+  #         description: email acces
+  #         required: true
+  #       - in: body
+  #         name:
+  #           - password
+  #         description: password acces
+  #         required: true
+  #     responses:
+  #       201:
+  #         description: response
+  #       500:
+  #         description: response
   /api/auth/signup:
     post:
-      description: welcome in to Groupomania
-      summary: creation of an account
-      parameters:
-        - in: body
-          name:
-            - email
-            - name
-            - firstname
-          description: contact acces
-          required: true
+      summary: Register a new user prodil and send a verification email
+      description: The first profil registered in the system is the `User` role.
+      tags:
+        - Authentification
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Mr"
+                firstName:
+                  type: string
+                  example: "Jason"
+                lastName:
+                  type: string
+                  example: "Watmore"
+                email:
+                  type: string
+                  example: "jason@example.com"
+                password:
+                  type: string
+                  example: "pass123"
+                confirmPassword:
+                  type: string
+                  example: "pass123"
+                acceptTerms:
+                  type: boolean
+              required:
+                - title
+                - firstName
+                - lastName
+                - email
+                - password
+                - confirmPassword
+                - acceptTerms
       responses:
-        200:
-          description: response
+        "200":
+          description: The registration request was successful and a verification email has been sent to the specified email address
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Registration successful, please check your email for verification instructions"
 
   /api/auth/login:
     post:
       description: Welcome back in Groupomania
       summary: login in user account
+      tags:
+        - Authentification
       parameters:
         - in: body
           name:
             - email
-            - name
-            - firstname
-          description: contact acces
+          description: email acces
+          required: true
+        - in: body
+          name:
+            - password
+          description: password acces
           required: true
       responses:
         200:
           description: response
-
-  /api/auth/delete:
-    delete:
-      description: delete your profil
-      summary: delete your profil
-      parameters:
-        - in: body
-          name:
-            - profil
-      response:
-        200:
-        description: response
-
-  /api/main:
-    post:
-      description: create a post for you're coworker
-      summary: create and post sommething
-      parameters:
-        - in: body
-          name:
-            - title
-            - text
-            - img
-            - like
-            - share
-          required: true
-      response:
-        201:
-        description: response
-
-  /api/main/all:
-    get:
-      description: get a post
-      summary: read post
-      parameters:
-        - in: body
-          name:
-            - post
-      response:
-        200:
-        description: response
-
-  /api/post/id:
-    put:
-      description: update a post
-      summary: update your post
-      parameters:
-        - in: body
-          name:
-            - post
-      response:
-        200:
-        description: response
-
-  /api/post/delete/id:
-    delete:
-      description: delete a post
-      summary: delete your post
-      parameters:
-        - in: body
-          name:
-            - post
-      response:
-        200:
-        description: response
-
-  /api/profile:
-    get:
-      description: get a profile
-      summary: get all profile
-      parameters:
-        - in: body
-          name:
-            - profile
-      response:
-        200:
-        description: response
-  /api/profil/id:
+        500:
+          description: response
+  /api/profil/:id:
     get:
       description: get you're profil
       summary: get you're profil
-      parameters:
-        - in: body
-          name:
-            - my profil
+      tags:
+        - Profil
       response:
         200:
         description: response
-  /api/profil/update/id:
     put:
-      description: update you're profil
-      summary: update you're profil
-      parameters:
-        - in: body
-          name:
-            - update my profil
-      response:
-        200:
-        description: response
-  /api/profil/delete/id:
+      summary: Update you're profil
+      description: The`Users`can update their profil.
+      tags:
+        - Profil
+      operationId: update profil
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Mr"
+                firstName:
+                  type: string
+                  example: "Jason"
+                lastName:
+                  type: string
+                  example: "Watmore"
+                email:
+                  type: string
+                  example: "jason@example.com"
+                password:
+                  type: string
+                  example: "pass123"
+                confirmPassword:
+                  type: string
+                  example: "pass123"
+      responses:
+        "200":
+          description: Profil updated successfully. The details of the updated profil are returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "5eb12e197e06a76ccdefc121"
+                  title:
+                    type: string
+                    example: "Mr"
+                  firstName:
+                    type: string
+                    example: "Jason"
+                  lastName:
+                    type: string
+                    example: "Watmore"
+                  email:
+                    type: string
+                    example: "jason@example.com"
+                  created:
+                    type: string
+                    example: "2020-05-05T09:12:57.848Z"
+                  updated:
+                    type: string
+                    example: "2020-05-08T03:11:21.553Z"
     delete:
-      description: delete you're profil
-      summary: delete you're profil
-      parameters:
-        - in: body
-          name:
-            - delete my profil
+      summary: Delete you're profil
+      description: The `User`can delete their own profil.
+      tags:
+        - Profil
+      operationId: deleteAccount
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Account deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Account deleted successfully"
+
+  /api/posts:
+    get:
+      description: get all post
+      summary: get all post
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "My new MacBook"
+                text:
+                  type: string
+                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses. "
+                img:
+                  type: string
+                  example: "Url img"
+                like:
+                  type: number
+                  example: 2
+                dislike:
+                  type: number
+                  example: 1
       response:
         200:
         description: response
-  /api/comment:
+
+    post:
+      description: create a post
+      summary: create post
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "My new MacBook 13 pouce "
+                text:
+                  type: string
+                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses. "
+                img:
+                  type: string
+                  example: "Url img"
+        response:
+          201:
+          description: response
+
+  /api/posts/:id:
+    put:
+      description: update a post
+      summary: update your post
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "My new MacBook 16 pouce"
+                text:
+                  type: string
+                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses."
+                img:
+                  type: string
+                  example: "Url img"
+        response:
+          200:
+          description: response
+    delete:
+      description: delete a post
+      summary: delete your post
+      tags:
+        - Posts
+      parameters:
+        - in: body
+          name:
+            - post
+      response:
+        200:
+        description: response
+
+  /api/comments:
     get:
       description: get all comment
       summary: get all comment
-      parameters:
-        - in: body
-          name:
-            - get all comment
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                like:
+                  type: number
+                  example: 25
+                dislike:
+                  type: number
+                  example: 3
       response:
         200:
         description: response
@@ -155,10 +309,21 @@ paths:
     get:
       description: get one comment
       summary: get one comment
-      parameters:
-        - in: body
-          name:
-            - get one comment
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                like:
+                  type: number
+                  example: 25
+                dislike:
+                  type: number
+                  example: 3
       response:
         200:
         description: response
@@ -166,6 +331,8 @@ paths:
     post:
       description: post one comment
       summary: post one comment
+      tags:
+        - Comments
       parameters:
         - in: body
           name:
@@ -177,6 +344,8 @@ paths:
     put:
       description: update one comment
       summary: update one comment
+      tags:
+        - Comments
       parameters:
         - in: body
           name:
@@ -188,6 +357,8 @@ paths:
     delete:
       description: delete one comment
       summary: delete one comment
+      tags:
+        - Comments
       parameters:
         - in: body
           name:
@@ -196,9 +367,11 @@ paths:
         200:
         description: response
   /api/like/postid/userid:
-    get:
+    post:
       description: like one post
       summary: like one post
+      tags:
+        - Like
       parameters:
         - in: body
           name:
@@ -207,9 +380,11 @@ paths:
         200:
         description: response
   /api/dislike/postid/userid:
-    get:
+    delete:
       description: dislike one post
       summary: dislike one post
+      tags:
+        - Like
       parameters:
         - in: body
           name:
