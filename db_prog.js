@@ -1,8 +1,9 @@
 // const { Sequelize } = require("sequelize");
 
-// const sequelize = new Sequelize("groupomania", "root@localhost", {
+// const sequelize = new Sequelize("groupomania", "root", {
 //   host: "localhost",
 //   dialect: "mysql",
+//   password:"",
 // });
 // try {
 //   await sequelize.authenticate();
