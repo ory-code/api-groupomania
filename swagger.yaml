@@ -305,10 +305,20 @@ paths:
       response:
         200:
         description: response
+
   /api/comment/id:
     get:
       description: get one comment
       summary: get one comment
+      tags:
+        - Comments
+      response:
+        200:
+        description: response
+
+    post:
+      description: like one comment
+      summary: like one comment
       tags:
         - Comments
       requestBody:
@@ -323,36 +333,85 @@ paths:
                   example: 25
                 dislike:
                   type: number
-                  example: 3
+                  example: 7
+        response:
+          200:
+          description: response
+
+    delete:
+      description: dislike one comment
+      summary: dislike one comment
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                like:
+                  type: number
+                  example: 25
+                dislike:
+                  type: number
+                  example: 771
       response:
         200:
         description: response
+
   /api/post/comment/postid:
     post:
       description: post one comment
       summary: post one comment
       tags:
         - Comments
-      parameters:
-        - in: body
-          name:
-            - post one comment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "Whaou j'adore !"
+                like:
+                  type: number
+                  example: 0
+                dislike:
+                  type: number
+                  example: 0
       response:
         200:
         description: response
+
   /api/update/comment/postid:
     put:
       description: update one comment
       summary: update one comment
       tags:
         - Comments
-      parameters:
-        - in: body
-          name:
-            - update one comment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  example: "tu as eu un code promo ?"
+                like:
+                  type: number
+                  example: 25
+                dislike:
+                  type: number
+                  example: 3
       response:
         200:
         description: response
+
   /api/delete/comment/postid:
     delete:
       description: delete one comment
@@ -366,29 +425,49 @@ paths:
       response:
         200:
         description: response
+
   /api/like/postid/userid:
     post:
       description: like one post
       summary: like one post
       tags:
         - Like
-      parameters:
-        - in: body
-          name:
-            - like one post
-      response:
-        200:
-        description: response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                like:
+                  type: number
+                  example: 12
+                dislike:
+                  type: number
+                  example: 8
+        response:
+          200:
+          description: response
+
   /api/dislike/postid/userid:
     delete:
       description: dislike one post
       summary: dislike one post
       tags:
         - Like
-      parameters:
-        - in: body
-          name:
-            - dislike one post
-      response:
-        200:
-        description: response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                like:
+                  type: number
+                  example: 12
+                dislike:
+                  type: number
+                  example: 10
+        response:
+          200:
+          description: response
