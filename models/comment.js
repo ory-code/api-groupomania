@@ -7,5 +7,5 @@ Comment.init({
   date: DataTypes.DATE,
   postId: DataTypes.INTEGER,
   sequelize,
-  ModelName: "PostLike",
+  ModelName: "Comment",
 });
