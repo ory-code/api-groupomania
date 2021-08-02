@@ -4,7 +4,9 @@ const userRoutes = require("./routes/user");
 const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
+const bodyParser = require("body-parser")
 const { Sequelize } = require("sequelize");
+
 const db = require("./db_prog");
 const options = {
   definition: {
@@ -29,7 +31,7 @@ app.use((req, res, next) => {
   );
   next();
 });
-
+app.use(bodyParser.json())
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
 app.use("/api/auth", userRoutes);

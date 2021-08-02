@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
-
+const User = require("../models/user")
 exports.signup = (req, res, next) => {
   console.log(req.body);
   if (!req.body.password || !req.body.email) {
@@ -17,7 +17,9 @@ exports.signup = (req, res, next) => {
       mode: CryptoJS.mode.ECB,
       iv: CryptoJS.enc.Utf8.parse(process.env.CRYPTO_IV),
     }
+
   ).toString();
+  console.log(email);
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -28,6 +30,7 @@ exports.signup = (req, res, next) => {
         email: email,
         password: hash,
       });
+      console.log(user);
       user
         .save()
         .then(() => res.status(201).json({ message: "Utilisateur créé !" }))

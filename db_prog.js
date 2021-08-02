@@ -1,4 +1,6 @@
-const { Sequelize } = require("sequelize");
+// const { db } = require("sequelize");
+const {Sequelize} = require("sequelize")
+//const sequelize = new Sequelize('sqlite::memory:');
 
 const sequelize = new Sequelize("groupomania", "root","", {
   host: "localhost",

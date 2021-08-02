@@ -1,26 +1,5 @@
 paths:
-  # /api/auth/signup:
-  #   post:
-  #     description: welcome in to Groupomania
-  #     summary: creation of an account
-  #     tags:
-  #       - Authentification
-  #     parameters:
-  #       - in: body
-  #         name:
-  #           - email
-  #         description: email acces
-  #         required: true
-  #       - in: body
-  #         name:
-  #           - password
-  #         description: password acces
-  #         required: true
-  #     responses:
-  #       201:
-  #         description: response
-  #       500:
-  #         description: response
+  
   /api/auth/signup:
     post:
       summary: Register a new user prodil and send a verification email
@@ -35,13 +14,13 @@ paths:
             schema:
               type: object
               properties:
-                title:
+                sexe:
                   type: string
-                  example: "Mr"
-                firstName:
+                  example: "male"
+                firstname:
                   type: string
                   example: "Jason"
-                lastName:
+                name:
                   type: string
                   example: "Watmore"
                 email:
@@ -53,8 +32,8 @@ paths:
                 confirmPassword:
                   type: string
                   example: "pass123"
-                acceptTerms:
-                  type: boolean
+                # acceptTerms:
+                #   type: boolean
               required:
                 - title
                 - firstName
@@ -62,7 +41,7 @@ paths:
                 - email
                 - password
                 - confirmPassword
-                - acceptTerms
+                #- acceptTerms
       responses:
         "200":
           description: The registration request was successful and a verification email has been sent to the specified email address
@@ -162,12 +141,12 @@ paths:
                   email:
                     type: string
                     example: "jason@example.com"
-                  created:
-                    type: string
-                    example: "2020-05-05T09:12:57.848Z"
-                  updated:
-                    type: string
-                    example: "2020-05-08T03:11:21.553Z"
+                  # created:
+                  #   type: string
+                  #   example: "2020-05-05T09:12:57.848Z"
+                  # updated:
+                  #   type: string
+                  #   example: "2020-05-08T03:11:21.553Z"
     delete:
       summary: Delete you're profil
       description: The `User`can delete their own profil.
