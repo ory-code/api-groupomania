@@ -1,7 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const CryptoJS = require("crypto-js");
-const User = require("../models/user")
+const User = require("../models/user");
+
 exports.signup = (req, res, next) => {
   console.log(req.body);
   if (!req.body.password || !req.body.email) {
@@ -17,9 +18,7 @@ exports.signup = (req, res, next) => {
       mode: CryptoJS.mode.ECB,
       iv: CryptoJS.enc.Utf8.parse(process.env.CRYPTO_IV),
     }
-
   ).toString();
-  console.log(email);
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -43,6 +42,7 @@ exports.login = (req, res, next) => {
   if (!req.body.password || !req.body.email) {
     return res.status(400).json({ error: "bad request" });
   }
+
   const email = CryptoJS.AES.encrypt(
     req.body.email,
     CryptoJS.enc.Utf8.parse(process.env.CRYPTO_SECRET_TOKEN),
@@ -51,12 +51,12 @@ exports.login = (req, res, next) => {
       iv: CryptoJS.enc.Utf8.parse(process.env.CRYPTO_IV),
     }
   ).toString();
-  User.findOne({ email: email })
+
+  User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
         return res.status(404).json({ error: "identifiants incorrect !" });
       }
-
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {

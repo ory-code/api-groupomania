@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/user");
+const postRoutes = require("./routes/post")
 const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
 const bodyParser = require("body-parser")
-const { Sequelize } = require("sequelize");
+
 
 const db = require("./db_prog");
 const options = {
@@ -35,6 +36,7 @@ app.use(bodyParser.json())
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
 app.use("/api/auth", userRoutes);
+app.use("/api/", postRoutes);
 
 // app.get("/api-docs.json", (req, res) => {
 //   res.setHeader("Content-Type", "application/json");

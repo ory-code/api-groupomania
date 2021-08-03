@@ -1,5 +1,4 @@
 paths:
-  
   /api/auth/signup:
     post:
       summary: Register a new user prodil and send a verification email
@@ -56,26 +55,30 @@ paths:
 
   /api/auth/login:
     post:
-      description: Welcome back in Groupomania
       summary: login in user account
+      description: Welcome back in Groupomania
       tags:
         - Authentification
-      parameters:
-        - in: body
-          name:
-            - email
-          description: email acces
-          required: true
-        - in: body
-          name:
-            - password
-          description: password acces
-          required: true
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "jason@example.com"
+                password:
+                  type: string
+                  example: "pass123"
       responses:
         200:
-          description: response
+          description: login with successful !
         500:
           description: response
+
   /api/profil/:id:
     get:
       description: get you're profil
@@ -85,6 +88,7 @@ paths:
       response:
         200:
         description: response
+
     put:
       summary: Update you're profil
       description: The`Users`can update their profil.
