@@ -1,16 +1,15 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db_prog");
-class PostLike extends Model {}
-
-PostLike.init(
+class LikeComments extends Model {}
+LikeComments.init(
   {
     liketype: DataTypes.INTEGER,
   },
   {
     sequelize,
-    tableName: "Postlike",
-    timestamps: false,
+    tableName: "LikeComments",
+    Timestamps: false,
   }
 );
 
-module.exports = PostLike;
+module.exports = LikeComments;

@@ -1,11 +1,17 @@
-const { sequelize, DataTypes, Model } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
+const sequelize = require("../db_prog");
 class Comment extends Model {}
 
-Comment.init({
-  userId: DataTypes.INTEGER,
-  content: DataTypes.TEXT,
-  date: DataTypes.DATE,
-  postId: DataTypes.INTEGER,
-  sequelize,
-  ModelName: "Comment",
-});
+Comment.init(
+  {
+    content: DataTypes.TEXT,
+    date: DataTypes.DATE,
+  },
+  {
+    sequelize,
+    tableName: "Comment",
+    timestamps: false,
+  }
+);
+
+module.exports = Comment;
