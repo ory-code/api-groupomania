@@ -251,7 +251,7 @@ paths:
                   type: string
                   example: "Url img"
         response:
-          200:
+          201:
           description: response
     delete:
       description: delete a post

@@ -19,6 +19,7 @@ exports.signup = (req, res, next) => {
       iv: CryptoJS.enc.Utf8.parse(process.env.CRYPTO_IV),
     }
   ).toString();
+
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -38,11 +39,11 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
+
 exports.login = (req, res, next) => {
   if (!req.body.password || !req.body.email) {
     return res.status(400).json({ error: "bad request" });
   }
-
   const email = CryptoJS.AES.encrypt(
     req.body.email,
     CryptoJS.enc.Utf8.parse(process.env.CRYPTO_SECRET_TOKEN),
@@ -51,12 +52,12 @@ exports.login = (req, res, next) => {
       iv: CryptoJS.enc.Utf8.parse(process.env.CRYPTO_IV),
     }
   ).toString();
-
-  User.findOne({ where: { email: email } })
+  User.findOne({where:{ email: email} })
     .then((user) => {
       if (!user) {
         return res.status(404).json({ error: "identifiants incorrect !" });
       }
+
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
@@ -74,3 +75,4 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+

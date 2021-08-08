@@ -6,9 +6,11 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
 const bodyParser = require("body-parser")
-
+require("dotenv").config()
 
 const db = require("./db_prog");
+const { ConnectionError } = require("sequelize/types");
+const User = require("./models/user");
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -35,11 +37,15 @@ app.use((req, res, next) => {
 app.use(bodyParser.json())
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
-app.use("/api/auth", userRoutes);
-app.use("/api/", postRoutes);
+app.use("/api/auth",userRoutes);
+app.use("/api/post", postRoutes, (req,res)=> {
 
-// app.get("/api-docs.json", (req, res) => {
-//   res.setHeader("Content-Type", "application/json");
-//   res.send(openapiSpecification);
-// });
+});
+
+// app.use('/groupomania/user',  userRoutes) 
+// app.use('/groupomania/profile', profileRoutes)
+// app.use('/groupomania/post',  postRoutes)
+// app.use('/groupomania/comment',  commentRoutes)
+// app.use('/groupomania/likePost',  likePostRoutes)
+// app.use('/groupomania/likeComment' , likeCommentRoutes)
 module.exports = app;
