@@ -8,9 +8,8 @@ const path = require("path");
 const bodyParser = require("body-parser")
 require("dotenv").config()
 
-const db = require("./db_prog");
-const { ConnectionError } = require("sequelize/types");
-const User = require("./models/user");
+//const db = require("./db_prog");
+
 const options = {
   definition: {
     openapi: "3.0.0",
