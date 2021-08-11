@@ -177,35 +177,15 @@ paths:
       summary: get all post
       tags:
         - Posts
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "My new MacBook"
-                text:
-                  type: string
-                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses. "
-                img:
-                  type: string
-                  example: "Url img"
-                like:
-                  type: number
-                  example: 2
-                dislike:
-                  type: number
-                  example: 1
+      
       response:
         200:
         description: response
 
     post:
-      description: create a post
       summary: create post
+      description: create a post
+      operationId: addPost
       tags:
         - Posts
       requestBody:
@@ -217,18 +197,62 @@ paths:
               properties:
                 title:
                   type: string
-                  example: "My new MacBook 13 pouce "
+                  example: "My new MacBook 13 pouce"
                 text:
                   type: string
-                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses. "
+                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses."
                 img:
                   type: string
                   example: "Url img"
+              required:
+                 - title
+                 - text
+                 - img
         response:
           201:
           description: response
 
   /api/posts/:id:
+    get:
+      summary: Returns a post by ID.
+      tags:
+        - Posts
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          description: The ID of the post to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
+      responses:
+        '200':
+          description: A post object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                    example: 1
+                  title:
+                    type: string
+                    example: "mon nouveau Macbook 13 pouce"
+                  text:
+                    type: string
+                    example: "il est trop jolie et super performant"
+                  img:
+                    type: string
+                    example: "url de l'image"
+        '400':
+          description: The specified user ID is invalid (not a number).
+        '404':
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
     put:
       description: update a post
       summary: update your post
@@ -266,7 +290,7 @@ paths:
         200:
         description: response
 
-  /api/comments:
+  /api/comment:
     get:
       description: get all comment
       summary: get all comment

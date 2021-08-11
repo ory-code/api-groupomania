@@ -6,7 +6,7 @@ const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
 const bodyParser = require("body-parser")
-require("dotenv").config()
+//require("dotenv").config()
 
 //const db = require("./db_prog");
 
@@ -37,14 +37,12 @@ app.use(bodyParser.json())
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
 app.use("/api/auth",userRoutes);
-app.use("/api/post", postRoutes, (req,res)=> {
+app.use("/api/posts", postRoutes)
 
-});
-
-// app.use('/groupomania/user',  userRoutes) 
-// app.use('/groupomania/profile', profileRoutes)
-// app.use('/groupomania/post',  postRoutes)
-// app.use('/groupomania/comment',  commentRoutes)
-// app.use('/groupomania/likePost',  likePostRoutes)
-// app.use('/groupomania/likeComment' , likeCommentRoutes)
+// app.use('/api/user',  userRoutes) 
+// app.use('/api/profil', profileRoutes)
+// app.use('/api/posts',  postRoutes)
+// app.use('/api/comment',  commentRoutes)
+// app.use('/api/like',  likePostRoutes)
+// app.use('/api/likeComment' , likeCommentRoutes)
 module.exports = app;

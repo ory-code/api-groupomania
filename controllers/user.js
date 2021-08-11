@@ -57,10 +57,11 @@ exports.login = (req, res, next) => {
       if (!user) {
         return res.status(404).json({ error: "identifiants incorrect !" });
       }
-
+      console.log(req.body);
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
+          console.log(valid)
           if (!valid) {
             return res.status(404).json({ error: "identifiants incorrect !" });
           }
