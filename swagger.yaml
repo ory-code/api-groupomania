@@ -173,14 +173,13 @@ paths:
 
   /api/posts:
     get:
-      description: get all post
-      summary: get all post
+      description: Returns all pets from the system that the user has access to
+      operationId: findPosts
       tags:
         - Posts
-      
-      response:
-        200:
-        description: response
+      responses:
+        "200":
+          description:  allPost response
 
     post:
       summary: create post
@@ -197,17 +196,17 @@ paths:
               properties:
                 title:
                   type: string
-                  example: "My new MacBook 13 pouce"
+                  example: "Messi arrive au Psg c'est incroyable"
                 text:
                   type: string
-                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses."
+                  example: "ICI C'est PARIS !"
                 img:
                   type: string
                   example: "Url img"
               required:
-                 - title
-                 - text
-                 - img
+                - title
+                - text
+                - img
         response:
           201:
           description: response
@@ -227,7 +226,7 @@ paths:
             format: int11
             minimum: 1
       responses:
-        '200':
+        "200":
           description: A post object.
           content:
             application/json:
@@ -247,17 +246,27 @@ paths:
                   img:
                     type: string
                     example: "url de l'image"
-        '400':
+        "400":
           description: The specified user ID is invalid (not a number).
-        '404':
+        "404":
           description: A user with the specified ID was not found.
         default:
           description: Unexpected error
     put:
-      description: update a post
       summary: update your post
+      description: update your post
+      operationId: updatePost
       tags:
         - Posts
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          description: The ID of the post to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
       requestBody:
         required: true
         content:
@@ -265,30 +274,43 @@ paths:
             schema:
               type: object
               properties:
+                id:
+                  type: integer
+                  format: int11
+                  example: 1
                 title:
                   type: string
-                  example: "My new MacBook 16 pouce"
+                  example: "mon nouveau Macbook 21 pouce"
                 text:
                   type: string
-                  example: "La puce M1 confère au MacBook Pro une vitesse et une puissance vertigineuses."
+                  example: "il est trop jolie et super performant"
                 img:
                   type: string
-                  example: "Url img"
-        response:
-          201:
+                  example: "url de l'image"
+            required:
+              - title
+              - text
+              - img
+      responses:
+        "200":
           description: response
+
     delete:
-      description: delete a post
-      summary: delete your post
+      description: deletes a single post based on the ID supplied
+      operationId: deletePost
       tags:
         - Posts
       parameters:
-        - in: body
-          name:
-            - post
-      response:
-        200:
-        description: response
+        - name: id
+          in: path
+          description: ID of post to delete
+          required: true
+          type: integer
+          format: int11
+          example: 1
+      responses:
+        "200":
+          description: pet deleted
 
   /api/comment:
     get:

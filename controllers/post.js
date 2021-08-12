@@ -13,7 +13,6 @@ exports.createPost = (req, res, next) => {
     text: text,
     img: img,
   });
-  delete post._id;
   post
     .save()
     .then(() =>
@@ -29,17 +28,51 @@ exports.createPost = (req, res, next) => {
 
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
-    where: { id: req.params.id } })
+    where: { id: req.params.id },
+  })
     .then(() => {
-      res.status(200).json({message:"Bravo Alex va être content !"});
+      res.status(200).json({ message: "Bravo Alex va être content !" });
     })
     .catch((error) => {
       res.status(404).json(error);
     });
-    
 };
 
-exports.updatePost = (req,res,next)=> {
+exports.updatePost = (req, res, next) => {
+  const id = req.params.id;
+  const title = req.body.title;
+  const text = req.body.text;
+  const img = req.body.img;
+  Post.update(
+    { title, text, img },
+    { where: { id: id, title: title, text: text, img: img } }
+  )
+    .then(() => {
+      res.status(200).json({ message: "post update" });
+    })
+    .catch(() => {
+      res.status(400).json({ message: error });
+    });
+  console.log(req.body);
+};
+
+exports.deletePost = (req, res, next) => {
+  Post.destroy({ where: { id: req.params.id } })
+    .then(() => {
+      res.status(200).json({ message: "delete with succes !" });
+    })
+    .catch(() => {
+      res.status(500).json({ error: "impossible to delete !" });
+    });
+};
 
 
+exports.getAllPost = (req,res,next) => {
+  Post.findAll()
+  .then(()=>{
+    res.status(200).json({message: "all post found"})
+  })
+  .catch(()=>{
+    res.status(404).json({message: "posts introuvable !"})
+  })
 }
