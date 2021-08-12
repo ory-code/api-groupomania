@@ -81,22 +81,59 @@ paths:
 
   /api/profil/:id:
     get:
-      description: get you're profil
-      summary: get you're profil
+      summary: Returns a post by ID.
       tags:
         - Profil
-      response:
-        200:
-        description: response
-
+      parameters:
+        - name: profil Id
+          in: path
+          required: true
+          description: The ID of the profil to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
+      responses:
+        "200":
+          description: A profil object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sexe:
+                    type: enum
+                    example: male
+                  name:
+                    type: string
+                    example: "Sacha"
+                  firstname:
+                    type: string
+                    example: "ory"
+                  img:
+                    type: string
+                    example: "url de l'image profil"
+        "400":
+          description: The specified user ID is invalid (not a number).
+        "404":
+          description: A user with the specified ID was not found.
+        default:
+          description: Unexpected error
     put:
-      summary: Update you're profil
-      description: The`Users`can update their profil.
+      summary: update your profil
+      description: update your profil
+      operationId: updateProfil
       tags:
         - Profil
-      operationId: update profil
-      security:
-        - bearerAuth: []
+      parameters:
+        - name: profil Id
+          in: path
+          required: true
+          description: The ID of the profil to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
       requestBody:
         required: true
         content:
@@ -104,72 +141,44 @@ paths:
             schema:
               type: object
               properties:
-                title:
+                id:
+                  type: integer
+                  format: int64
+                  example: 1
+                sexe:
                   type: string
-                  example: "Mr"
-                firstName:
+                  example: "male"
+                name:
                   type: string
-                  example: "Jason"
-                lastName:
+                  example: "sacha"
+                firstname:
                   type: string
-                  example: "Watmore"
-                email:
-                  type: string
-                  example: "jason@example.com"
-                password:
-                  type: string
-                  example: "pass123"
-                confirmPassword:
-                  type: string
-                  example: "pass123"
+                  example: "ory"
+            required:
+              - sexe
+              - name
+              - firstname
       responses:
         "200":
-          description: Profil updated successfully. The details of the updated profil are returned.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    example: "5eb12e197e06a76ccdefc121"
-                  title:
-                    type: string
-                    example: "Mr"
-                  firstName:
-                    type: string
-                    example: "Jason"
-                  lastName:
-                    type: string
-                    example: "Watmore"
-                  email:
-                    type: string
-                    example: "jason@example.com"
-                  # created:
-                  #   type: string
-                  #   example: "2020-05-05T09:12:57.848Z"
-                  # updated:
-                  #   type: string
-                  #   example: "2020-05-08T03:11:21.553Z"
+          description: response
+    
+
     delete:
-      summary: Delete you're profil
-      description: The `User`can delete their own profil.
+      description: deletes a profil based on the ID supplied
+      operationId: deleteProfil
       tags:
         - Profil
-      operationId: deleteAccount
-      security:
-        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID of profil to delete
+          required: true
+          type: integer
+          format: int11
+          example: 1
       responses:
         "200":
-          description: Account deleted successfully
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Account deleted successfully"
+          description: profil deleted
 
   /api/posts:
     get:
@@ -179,7 +188,7 @@ paths:
         - Posts
       responses:
         "200":
-          description:  allPost response
+          description: allPost response
 
     post:
       summary: create post
@@ -310,7 +319,7 @@ paths:
           example: 1
       responses:
         "200":
-          description: pet deleted
+          description: post deleted
 
   /api/comment:
     get:

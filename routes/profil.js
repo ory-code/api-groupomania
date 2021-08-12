@@ -1,11 +1,11 @@
-const express = require('express') 
-const router = express.Router() 
-const auth = require('../middleware/auth') 
-const profileCtrl = require('../controllers/profile') 
- const multer = require('../middleware/multer-config') 
+const express = require("express");
+const router = express.Router();
+//const auth = require('../middleware/auth')
+const profilCtrl = require("../controllers/profil");
+// const multer = require('../middleware/multer-config')
 
-router.get('/:userid', auth, profileCtrl.userProfile) 
-router.put('/:userid', auth,multer, profileCtrl.updateProfile) 
-router.delete('/:userid', auth, profileCtrl.deleteProfile) 
+router.get("/:id", profilCtrl.getProfil); //auth
+router.put("/:id", profilCtrl.updateProfil); //auth
+router.delete("/:id", profilCtrl.deleteProfil); //auth
 
-module.exports = router //On exporte notre router pour l'importer dans app.js
+module.exports = router;

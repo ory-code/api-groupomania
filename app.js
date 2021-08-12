@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const userRoutes = require("./routes/user");
 const postRoutes = require("./routes/post")
+const profilRoutes = require("./routes/profil")
 const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
@@ -38,10 +39,8 @@ app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
 app.use("/api/auth",userRoutes);
 app.use("/api/posts", postRoutes)
+app.use('/api/profil', profilRoutes)
 
-// app.use('/api/user',  userRoutes) 
-// app.use('/api/profil', profileRoutes)
-// app.use('/api/posts',  postRoutes)
 // app.use('/api/comment',  commentRoutes)
 // app.use('/api/like',  likePostRoutes)
 // app.use('/api/likeComment' , likeCommentRoutes)

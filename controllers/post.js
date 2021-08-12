@@ -1,5 +1,4 @@
 const Post = require("../models/post");
-
 exports.createPost = (req, res, next) => {
   // if (!req.body.sauce) {
   //   return res.status(400).json({ error: "bad request" });
@@ -66,13 +65,12 @@ exports.deletePost = (req, res, next) => {
     });
 };
 
-
-exports.getAllPost = (req,res,next) => {
+exports.getAllPost = (req, res, next) => {
   Post.findAll()
-  .then(()=>{
-    res.status(200).json({message: "all post found"})
-  })
-  .catch(()=>{
-    res.status(404).json({message: "posts introuvable !"})
-  })
-}
+    .then(() => {
+      res.status(200).json({ message: "all post found" });
+    })
+    .catch(() => {
+      res.status(404).json({ message: "posts introuvable !" });
+    });
+};
