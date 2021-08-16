@@ -1,12 +1,11 @@
 const Post = require("../models/post");
 exports.createPost = (req, res, next) => {
-  // if (!req.body.sauce) {
+  // if (!req.body.post) {
   //   return res.status(400).json({ error: "bad request" });
   // }
   const title = req.body.title;
   const text = req.body.text;
   const img = req.body.img;
-
   const post = new Post({
     title: title,
     text: text,
@@ -16,7 +15,7 @@ exports.createPost = (req, res, next) => {
     .save()
     .then(() =>
       res.status(201).json({
-        message: "product create !",
+        message: "post create !",
       })
     )
     .catch((error) => {
@@ -36,6 +35,7 @@ exports.getOnePost = (req, res, next) => {
       res.status(404).json(error);
     });
 };
+
 
 exports.updatePost = (req, res, next) => {
   const id = req.params.id;

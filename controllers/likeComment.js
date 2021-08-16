@@ -46,9 +46,9 @@ exports.likeComment = (req, res, next) => {
             })
             .catch(res.status(500).json({ error: "Erreur create like" })); //Erreur server
         })
-        .catch(res.status(406).json({ error: "Like introuvable" })); //Erreur not accetable
+        .catch(res.status(404).json({ error: "Like introuvable" })); //Erreur not accetable
     })
-    .catch(res.status(406).json({ error: "comment introuvable" })); //Erreur not accetable
+    .catch(res.status(404).json({ error: "comment introuvable" })); //Erreur not accetable
 };
 
 exports.dislikeComment = (req, res, next) => {
@@ -83,7 +83,7 @@ exports.dislikeComment = (req, res, next) => {
                     res.status(500).json({ error: " Erreur update comment" })
                   ); //Erreur server
               })
-              .catch(res.status(500).json({ error })); //Erreur server
+              .catch(res.status(500).json({ error: "error" })); //Erreur server
           }
           return likeComment
             .create({
@@ -95,11 +95,11 @@ exports.dislikeComment = (req, res, next) => {
               comment
                 .update({ like: comment.liketype - 1 }) //On update le comment
                 .then(res.status(201).json({ message: "Disliké !" }))
-                .catch(res.status(500).json({ error })); //Erreur server
+                .catch(res.status(500).json({ error: "error" })); //Erreur server
             })
-            .catch((error) => res.status(500).json({ error })); //Erreur server
+            .catch(() => res.status(500).json({ error: "error" })); //Erreur server
         })
-        .catch((error) => res.status(406).json({ error })); //Erreur not accetable
+        .catch(() => res.status(406).json({ error: "error" })); //Erreur not accetable
     })
-    .catch((error) => res.status(406).json({ error })); //Erreur not accetable
+    .catch(() => res.status(406).json({ error: "error" })); //Erreur not accetable
 };

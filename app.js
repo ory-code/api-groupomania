@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/user");
-const postRoutes = require("./routes/post")
-const profilRoutes = require("./routes/profil")
+const postRoutes = require("./routes/post");
+const profilRoutes = require("./routes/profil");
+const commentRoutes = require("./routes/comment");
 const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
-const bodyParser = require("body-parser")
-//require("dotenv").config()
+const bodyParser = require("body-parser");
+require("dotenv").config()
 
-//const db = require("./db_prog");
 
 const options = {
   definition: {
@@ -34,14 +34,12 @@ app.use((req, res, next) => {
   );
   next();
 });
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
-app.use("/api/auth",userRoutes);
-app.use("/api/posts", postRoutes)
-app.use('/api/profil', profilRoutes)
+app.use("/api/auth", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/posts/comments",commentRoutes)
+app.use("/api/profil", profilRoutes);
 
-// app.use('/api/comment',  commentRoutes)
-// app.use('/api/like',  likePostRoutes)
-// app.use('/api/likeComment' , likeCommentRoutes)
 module.exports = app;

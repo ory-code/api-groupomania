@@ -7,13 +7,12 @@ exports.likePost = (req, res, next) => {
   const postid = req.params.postid;
   const userid = req.params.userid;
 
-  models.Post.findOne({
-    attributes: ["id", "like"],
+  Post.findOne({
     where: { id: postid }, //On recupère l'id du post
   })
     .then((post) => {
-      models.LikePost.findOne({
-        attributes: ["id", "UserId", "PostId", "isLike"],
+      PostLike.findOne({
+        attributes: ["id", "userid", "Postid", "liketype"],
         where: { Userid: userid, Postid: postid },
       })
         .then((like) => {
@@ -32,7 +31,7 @@ exports.likePost = (req, res, next) => {
                     res.status(500).json({ error: " Erreur update post" })
                   ); //Erreur server
               })
-              .catch(res.status(500).json({ error })); //Erreur server
+              .catch(res.status(500).json({ error: "error" })); //Erreur server
           }
           PostLike.create({ Userid: userid, Postid: postid, liketype: LIKED }) //Si non
             .then(() => {
@@ -41,11 +40,11 @@ exports.likePost = (req, res, next) => {
                 .then(res.status(201).json({ message: "Liké !" }))
                 .catch(res.status(500).json({ error })); //Erreur server
             })
-            .catch(res.status(500).json({ error })); //Erreur server
+            .catch(res.status(500).json({ error: "error" })); //Erreur server
         })
-        .catch(res.status(406).json({ error })); //Erreur not accetable
+        .catch(res.status(406).json({ error: "error" })); //Erreur not accetable
     })
-    .catch(res.status(406).json({ error })); //Erreur not accetable
+    .catch(res.status(406).json({ error: "error" })); //Erreur not accetable
 };
 
 exports.dislikePost = (req, res, next) => {
@@ -75,9 +74,9 @@ exports.dislikePost = (req, res, next) => {
                 post
                   .update({ like: post.like - 1 }) //On update le post
                   .then(res.status(201).json({ message: "Disliké !!" })) //, post, like
-                  .catch(res.status(500).json({ error })); //Erreur server
+                  .catch(res.status(500).json({ error: "error" })); //Erreur server
               })
-              .catch(res.status(500).json({ error })); //Erreur server
+              .catch(res.status(500).json({ error: "error" })); //Erreur server
           }
           PostLike.create({
             Userid: userid,
@@ -88,11 +87,11 @@ exports.dislikePost = (req, res, next) => {
               post
                 .update({ like: post.like - 1 }) //On update le post
                 .then(res.status(201).json({ message: "Disliké !" }))
-                .catch(res.status(500).json({ error })); //Erreur server
+                .catch(res.status(500).json({ error: "error" })); //Erreur server
             })
-            .catch(res.status(500).json({ error })); //Erreur server
+            .catch(res.status(500).json({ error: "error" })); //Erreur server
         })
-        .catch(res.status(406).json({ error })); //Erreur not accetable
+        .catch(res.status(406).json({ error: "error" })); //Erreur not accetable
     })
-    .catch(res.status(406).json({ error })); //Erreur not accetable
+    .catch(res.status(406).json({ error: "error" })); //Erreur not accetable
 };
