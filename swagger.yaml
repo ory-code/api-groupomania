@@ -79,7 +79,7 @@ paths:
         500:
           description: response
 
-  /api/profil/:id:
+  /api/profil/{id}:
     get:
       summary: Returns a post by ID.
       tags:
@@ -320,7 +320,7 @@ paths:
         "200":
           description: post deleted
 
-  /api/posts/:id/like:
+  /api/posts/{id}/like:
     post:
       summary: like or dislike a post
       description: post a like on a post
@@ -384,7 +384,7 @@ paths:
           201:
           description: response
 
-  /api/posts/comments/:id:
+  /api/posts/comments/{id}:
     get:
       summary: Returns a comment by ID.
       tags:
@@ -472,7 +472,7 @@ paths:
         "200":
           description: comment deleted
   
-  /api/posts/comments/:id/like:
+  /api/posts/comments/{id}/like:
     post:
       summary: like or dislike a comment
       description: post a like on a comment
