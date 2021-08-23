@@ -18,6 +18,18 @@ const options = {
       title: "Groupomania Api",
       version: "1.0.0",
     },
+    components: {
+      securitySchemes: {
+        jwt: {
+          type: "http",
+          scheme: "bearer",
+          name: 'authorization',
+          in: "header",
+          bearerFormat: "JWT"
+        },
+      }
+    },
+    security: [ { jwt: [] } ],
   },
   apis: [path.join(__dirname, "./swagger.yaml")], // files containing annotations as above
 };
