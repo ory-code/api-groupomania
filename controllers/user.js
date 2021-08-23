@@ -10,7 +10,7 @@ exports.signup = (req, res, next) => {
   }
   const name = req.body.name;
   const firstname = req.body.firstname;
-  const sexe = req.body.sexe;
+
   const email = CryptoJS.AES.encrypt(
     req.body.email,
     CryptoJS.enc.Utf8.parse(process.env.CRYPTO_SECRET_TOKEN),
@@ -26,7 +26,6 @@ exports.signup = (req, res, next) => {
       const user = new User({
         firstname: firstname,
         name: name,
-        sexe: sexe,
         email: email,
         password: hash,
       });
@@ -38,7 +37,6 @@ exports.signup = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
 
 exports.login = (req, res, next) => {
   if (!req.body.password || !req.body.email) {
@@ -52,7 +50,7 @@ exports.login = (req, res, next) => {
       iv: CryptoJS.enc.Utf8.parse(process.env.CRYPTO_IV),
     }
   ).toString();
-  User.findOne({where:{ email: email} })
+  User.findOne({ where: { email: email } })
     .then((user) => {
       if (!user) {
         return res.status(404).json({ error: "identifiants incorrect !" });
@@ -61,7 +59,7 @@ exports.login = (req, res, next) => {
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
-          console.log(valid)
+          console.log(valid);
           if (!valid) {
             return res.status(404).json({ error: "identifiants incorrect !" });
           }
@@ -76,4 +74,3 @@ exports.login = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-

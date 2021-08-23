@@ -10,7 +10,6 @@ User.init(
     name: DataTypes.STRING,
     firstname: DataTypes.STRING,
     password: DataTypes.STRING,
-    sexe: DataTypes.ENUM({ values: ["male", "female"] }),
   },
   {
     sequelize,
