@@ -7,6 +7,7 @@ const commentRoutes = require("./routes/comment");
 const swaggerJsdoc = require("swagger-jsdoc");
 const ui = require("swagger-ui-express");
 const path = require("path");
+const helmet = require("helmet")
 const bodyParser = require("body-parser");
 require("dotenv").config()
 
@@ -46,6 +47,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+app.use(helmet())
 app.use(bodyParser.json());
 app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
