@@ -124,7 +124,7 @@ paths:
       security:
         - jwt: []
       parameters:
-        - name: profil Id
+        - name: Id
           in: path
           required: true
           description: The ID of the profil to return.
@@ -275,7 +275,7 @@ paths:
       security:
         - jwt: []
       parameters:
-        - name: postId
+        - name: id
           in: path
           required: true
           description: The ID of the post to return.
@@ -340,7 +340,7 @@ paths:
       security:
         - jwt: []
       parameters:
-        - name: postId
+        - name: id
           in: path
           required: true
           description: The ID of the post to return.
@@ -408,7 +408,7 @@ paths:
       security:
         - jwt: []
       parameters:
-        - name: commentId
+        - name: id
           in: path
           required: true
           description: The ID of the comment to return.
@@ -447,7 +447,7 @@ paths:
       security:
         - jwt: []
       parameters:
-        - name: commentId
+        - name: id
           in: path
           required: true
           description: The ID of the comment to return.
