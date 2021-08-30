@@ -55,7 +55,6 @@ exports.login = (req, res, next) => {
       if (!user) {
         return res.status(404).json({ error: "identifiants incorrect !" });
       }
-      console.log(req.body);
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
@@ -65,7 +64,7 @@ exports.login = (req, res, next) => {
           }
           res.status(200).json({
             userId: user._id,
-            token: jwt.sign({ userId: user._id }, process.env.JWT_TOKEN, {
+            token: jwt.sign({ userId: user.id }, process.env.JWT_TOKEN, {
               expiresIn: "24h",
             }),
           });

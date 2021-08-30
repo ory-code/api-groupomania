@@ -11,18 +11,20 @@ exports.getProfil = (req, res, next) => {
 };
 
 exports.updateProfil = (req, res, next) => {
-  const id = req.params.id;
+ 
   const name = req.body.name;
-  const firstName = req.body.firstname;
-  
+  const firstname = req.body.firstname;
+  console.log(res.locals);
   User.update(
-    { name, firstName, sexe },
-    { where: { id: id, name: name, firstname: firstName } }
+    { name, firstname},
+    { where: {id: res.locals.userId } }
   )
     .then(() => {
       res.status(200).json({ message: "profil update" });
     })
-    .catch(() => {
+    
+    .catch((error) => {
+      console.log(error);
       res.status(500).json({ message: "error" });
     });
   console.log(req.body);

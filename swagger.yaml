@@ -124,7 +124,7 @@ paths:
       security:
         - jwt: []
       parameters:
-        - name: Id
+        - name: id
           in: path
           required: true
           description: The ID of the profil to return.
@@ -139,13 +139,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
-                  format: int64
-                  example: 1
-                sexe:
-                  type: string
-                  example: "male"
                 name:
                   type: string
                   example: "sacha"
@@ -153,9 +146,8 @@ paths:
                   type: string
                   example: "ory"
             required:
-              - sexe
-              - name
               - firstname
+              - name
       responses:
         "200":
           description: response
@@ -290,10 +282,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
-                  format: int11
-                  example: 1
                 title:
                   type: string
                   example: "mon nouveau Macbook 21 pouce"
