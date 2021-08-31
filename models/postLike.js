@@ -4,7 +4,9 @@ class PostLike extends Model {}
 
 PostLike.init(
   {
-    liketype: DataTypes.INTEGER,
+    postid: DataTypes.INTEGER,
+    liketype: DataTypes.ENUM(1, -1),
+    userid: DataTypes.INTEGER,
   },
   {
     sequelize,
