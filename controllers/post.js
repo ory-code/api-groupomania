@@ -71,8 +71,8 @@ exports.deletePost = (req, res, next) => {
 
 exports.getAllPost = (req, res, next) => {
   Post.findAll()
-    .then(() => {
-      res.status(200).json({ message: "all post found" });
+    .then((post) => {
+      res.status(200).json(post);
     })
     .catch(() => {
       res.status(404).json({ message: "posts introuvable !" });
