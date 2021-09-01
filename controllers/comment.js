@@ -1,59 +1,65 @@
 const Comment = require("../models/comment");
 
-exports.createComment = (req, res, next) => {
+exports.createComment = (req, res) => {
+  const postId = req.params.id;
+  const userId = res.locals.userId;
   const content = req.body.content;
-
-  const comment = new Comment({
+  const commentPost = new Comment({
+    postid: postId,
+    userid: userId,
     content: content,
   });
-  comment
+  commentPost
     .save()
     .then(() => {
-      res.status(201).json({ message: "comment create !" });
+      res.status(201).json({ message: "Congrat post commented ! " });
     })
     .catch((error) => {
-      res.status(500).json({ error });
+      res.status(500).json(error);
     });
-  console.log(comment);
 };
 
-exports.getOneComment = (req, res, next) => {
+exports.getOneComment = (req, res) => {
   Comment.findOne({ where: { id: req.params.id } })
-    .then(() => {
-      res.status(200).json({ message: "comment found" });
+    .then((comment) => {
+      res.status(200).json(comment);
     })
     .catch((error) => {
-      res.status(404).json({ error });
+      res.status(500).json(error);
     });
 };
 
-exports.updateComment = (req, res, next) => {
+exports.updateComment = (req, res) => {
+  const id = req.params.id;
+  const userId = res.locals.userId;
   const content = req.body.content;
 
-  Comment.update(
-    { content },
-    { where: { id: req.params.id, content: content } }
-  )
-    .then(res.status(200).json("comment update with succes !"))
-    .catch(res.status(500).json({ message: "error" }));
+  Comment.update({ content }, { where: { id: id, userid: userId } })
+    .then(() => {
+      res.status(200).json({ message: "comment update" });
+    })
+    .catch((error) => {
+      res.status(500).json(error);
+    });
 };
 
-exports.deleteComment = (req, res, next) => {
+exports.deleteComment = (req, res) => {
   Comment.destroy({ where: { id: req.params.id } })
     .then(() => {
-      res.status(200).json({ message: "comment delete with succes !" });
+      res.status(200).json({ message: "delete with succes !" });
     })
-    .catch(() => {
-      res.status(500).json({ error: "error" });
+    .catch((error) => {
+      res.status(500).json(error);
     });
 };
 
-exports.getAllComment = (req, res, next) => {
+exports.getAllComments = (req,res) => {
   Comment.findAll()
-    .then(() => {
-      res.status(200).json({ message: "All comment found with succes !" });
-    })
-    .catch(() => {
-      res.status(500).json({ message: "error" });
-    });
-};
+  .then((comments)=> {
+    res.status(200).json(comments)
+  })
+  .catch((error)=>{
+    console.log(comments);
+    res.status(404).json(error)
+  })
+}

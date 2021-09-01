@@ -1,8 +1,5 @@
 const Post = require("../models/post");
 exports.createPost = (req, res, next) => {
-  // if (!req.body.post) {
-  //   return res.status(400).json({ error: "bad request" });
-  // }
   const userId = res.locals.userId
   const title = req.body.title;
   const text = req.body.text;

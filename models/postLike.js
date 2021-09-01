@@ -5,7 +5,7 @@ class PostLike extends Model {}
 PostLike.init(
   {
     postid: DataTypes.INTEGER,
-    liketype: DataTypes.ENUM(1, -1),
+    liketype: DataTypes.INTEGER,
     userid: DataTypes.INTEGER,
   },
   {

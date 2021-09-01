@@ -6,7 +6,8 @@ const likePostCtrl = require("../controllers/likePost");
 const auth = require("../middleware/auth");
 
 router.post("/", auth, multer, postCtrl.createPost);
-router.post("/:id/like", auth, likePostCtrl.likePost, likePostCtrl.dislikePost);
+router.post("/:id/like", auth, likePostCtrl.likePost);
+router.post("/:id/dislike", auth, likePostCtrl.dislikePost);
 router.get("/", auth, postCtrl.getAllPost);
 router.get("/:id", auth, postCtrl.getOnePost);
 router.put("/:id", auth, multer, postCtrl.updatePost);

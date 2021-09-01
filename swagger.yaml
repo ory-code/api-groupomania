@@ -345,16 +345,49 @@ paths:
               properties:
                 liked:
                   type: number
-                  enum:
-                    - 1
-                    - -1 
+                  example:
+                    - 1 
               required:
                  - liked
         response:
           200:
           description: response
+  /api/posts/{id}/dislike:
+    post:
+      summary: dislike a post
+      description: post a dislike on a post
+      operationId: post a dislike
+      tags: 
+        - like
+      security:
+        - jwt: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
+      requestBody:
+        required: true
+        content:
+          aplication/json:
+            schema:
+              type: object
+              properties:
+                disliked:
+                  type: number
+                  example:
+                    - -1 
+              required:
+                 - disliked
+        response:
+          200:
+          description: response
 
-  /api/posts/comments:
+  /api/posts/{id}/comments:
     get:
       description: Returns all comments from the system that the user has access to
       operationId: findAllComments
@@ -362,6 +395,15 @@ paths:
         - Comments
       security:
         - jwt: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
       responses:
         "200":
           description: allComment response
@@ -374,6 +416,15 @@ paths:
         - Comments
       security:
         - jwt: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the post to return.
+          schema:
+            type: integer
+            format: int11
+            minimum: 1
       requestBody:
         required: true
         content:
@@ -390,7 +441,7 @@ paths:
           201:
           description: response
 
-  /api/posts/comments/{id}:
+  /api/posts/{id}/comments/{id}:
     get:
       summary: Returns a comment by ID.
       tags:
@@ -408,26 +459,7 @@ paths:
             minimum: 1
       responses:
         "200":
-          description: A commment object.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    format: int11
-                    example: 1
-                  content:
-                    type: string
-                    example: "ICI C'EST PARIS !"
-        "400":
-          description: The specified user ID is invalid (not a number).
-        "404":
-          description: A user with the specified ID was not found.
-        default:
-          description: Unexpected error
-
+          description: response
     put:
       summary: update your comment
       description: update your comment
@@ -452,10 +484,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: integer
-                  format: int11
-                  example: 1
                 content:
                   type: string
                   example: "Paris est magique"
@@ -483,37 +511,3 @@ paths:
       responses:
         "200":
           description: comment deleted
-  
-  /api/posts/comments/{id}/like:
-    post:
-      summary: like or dislike a comment
-      description: post a like on a comment
-      operationId: post a like
-      tags: 
-        - like
-      security:
-        - jwt: []
-      parameters:
-        - name: postId
-          in: path
-          required: true
-          description: The ID of the comment to return.
-          schema:
-            type: integer
-            format: int11
-            minimum: 1
-      requestBody:
-        required: true
-        content:
-          aplication/json:
-            schema:
-              type: object
-              properties:
-                LIKED:
-                  type: number
-                  example: 1 
-              required:
-                 - LIKED
-        response:
-          201:
-          description: response

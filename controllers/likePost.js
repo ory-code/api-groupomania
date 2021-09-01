@@ -9,11 +9,10 @@ exports.likePost = (req, res, next) => {
     userid: userId,
     liketype: liked,
   });
-  console.log(liked);
   likedPost
     .save()
     .then(() => {
-      res.status(200).json({ message: " Welldone post liked !" });
+      res.status(200).json({ message: " Congrat post liked !" });
     })
     .catch((error) => {
       console.log(error);

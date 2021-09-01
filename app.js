@@ -53,7 +53,7 @@ app.use("/api-docs", ui.serve);
 app.get("/api-docs", ui.setup(openapiSpecification));
 app.use("/api/auth", userRoutes);
 app.use("/api/posts", postRoutes);
-app.use("/api/posts/comments",commentRoutes)
+app.use("/api/posts",commentRoutes)
 app.use("/api/profil", profilRoutes);
 
 module.exports = app;
