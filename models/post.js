@@ -4,7 +4,6 @@ class Post extends Model {}
 Post.init(
   {
     userid: DataTypes.INTEGER,
-    title: DataTypes.STRING,
     text: DataTypes.STRING,
     img: DataTypes.STRING,
     date: DataTypes.DATE,

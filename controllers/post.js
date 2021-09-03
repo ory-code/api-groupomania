@@ -1,7 +1,6 @@
 const Post = require("../models/post");
 exports.createPost = (req, res, next) => {
   const userId = res.locals.userId
-  const title = req.body.title;
   const text = req.body.text;
   const img = req.body.img;
   const post = new Post({
@@ -40,7 +39,6 @@ exports.getOnePost = (req, res, next) => {
 exports.updatePost = (req, res, next) => {
   const id = req.params.id;
   const userId = res.locals.userId
-  const title = req.body.title;
   const text = req.body.text;
   const img = req.body.img;
   Post.update(

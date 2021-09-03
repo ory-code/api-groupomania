@@ -29,7 +29,6 @@ paths:
                   type: string
                   example: "pass123"
               required:
-                - title
                 - firstName
                 - lastName
                 - email
@@ -97,9 +96,6 @@ paths:
               schema:
                 type: object
                 properties:
-                  sexe:
-                    type: enum
-                    example: male
                   name:
                     type: string
                     example: "Sacha"
@@ -198,9 +194,6 @@ paths:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  example: "Messi arrive au Psg c'est incroyable"
                 text:
                   type: string
                   example: "ICI C'est PARIS !"
@@ -208,7 +201,6 @@ paths:
                   type: string
                   example: "Url img"
               required:
-                - title
                 - text
                 - img
         response:
@@ -243,9 +235,6 @@ paths:
                     type: integer
                     format: int64
                     example: 1
-                  title:
-                    type: string
-                    example: "mon nouveau Macbook 13 pouce"
                   text:
                     type: string
                     example: "il est trop jolie et super performant"
@@ -282,9 +271,6 @@ paths:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  example: "mon nouveau Macbook 21 pouce"
                 text:
                   type: string
                   example: "il est trop jolie et super performant"
@@ -292,7 +278,6 @@ paths:
                   type: string
                   example: "url de l'image"
             required:
-              - title
               - text
               - img
       responses:
