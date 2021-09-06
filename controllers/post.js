@@ -5,7 +5,6 @@ exports.createPost = (req, res, next) => {
   const img = req.body.img;
   const post = new Post({
     userid: userId,
-    title: title,
     text: text,
     img: img,
   });
@@ -55,7 +54,7 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  Post.destroy({ where: { id: req.params.id } })
+  Post.destroy({ where: { id: req.params.id , userId} })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
     })
