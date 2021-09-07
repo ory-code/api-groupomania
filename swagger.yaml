@@ -25,15 +25,11 @@ paths:
                 password:
                   type: string
                   example: "pass123"
-                confirmPassword:
-                  type: string
-                  example: "pass123"
               required:
-                - firstName
-                - lastName
+                - firstname
+                - name
                 - email
                 - password
-                - confirmPassword
       responses:
         "200":
           description: The registration request was successful and a verification email has been sent to the specified email address
