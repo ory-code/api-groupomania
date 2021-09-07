@@ -1,6 +1,6 @@
 const Post = require("../models/post");
 exports.createPost = (req, res, next) => {
-  const userId = res.locals.userId
+  const userId = res.locals.userId;
   const text = req.body.text;
   const img = req.body.img;
   const post = new Post({
@@ -27,23 +27,19 @@ exports.getOnePost = (req, res, next) => {
     where: { id: req.params.id },
   })
     .then((post) => {
-      res.status(200).json(post );
+      res.status(200).json(post);
     })
     .catch((error) => {
       res.status(404).json(error);
     });
 };
 
-
 exports.updatePost = (req, res, next) => {
   const id = req.params.id;
-  const userId = res.locals.userId
+  const userId = res.locals.userId;
   const text = req.body.text;
   const img = req.body.img;
-  Post.update(
-    { title, text, img },
-    { where: { id: id, userid: userId} }
-  )
+  Post.update({ text, img }, { where: { id: id, userid: userId } })
     .then(() => {
       res.status(200).json({ message: "post update" });
     })
@@ -54,7 +50,8 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  Post.destroy({ where: { id: req.params.id , userId} })
+  const userId = res.local.userdId;
+  Post.destroy({ where: { id: req.params.id, userid: userId } })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
     })

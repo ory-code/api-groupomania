@@ -11,18 +11,14 @@ exports.getProfil = (req, res, next) => {
 };
 
 exports.updateProfil = (req, res, next) => {
- 
   const name = req.body.name;
   const firstname = req.body.firstname;
   console.log(res.locals);
-  User.update(
-    { name, firstname},
-    { where: {id: res.locals.userId } }
-  )
+  User.update({ name, firstname }, { where: { id: res.locals.userId } })
     .then(() => {
       res.status(200).json({ message: "profil update" });
     })
-    
+
     .catch((error) => {
       console.log(error);
       res.status(500).json({ message: "error" });
@@ -31,7 +27,8 @@ exports.updateProfil = (req, res, next) => {
 };
 
 exports.deleteProfil = (req, res, next) => {
-  User.destroy({ where: { id: req.params.id } })
+  const userId = res.locals.userId;
+  User.destroy({ where: { id: req.params.id, userid: userId } })
     .then(() => {
       res.status(200).json({ message: "profil delete !" });
     })

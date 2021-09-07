@@ -44,7 +44,8 @@ exports.updateComment = (req, res) => {
 };
 
 exports.deleteComment = (req, res) => {
-  Comment.destroy({ where: { id: req.params.id } })
+  const userId = res.locals.userId
+  Comment.destroy({ where: { id: req.params.id, userid: userId } })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
     })
