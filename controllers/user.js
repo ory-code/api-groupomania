@@ -4,13 +4,11 @@ const CryptoJS = require("crypto-js");
 const User = require("../models/user");
 
 exports.signup = (req, res, next) => {
-  console.log(req.body);
   if (!req.body.password || !req.body.email) {
-    return res.status(400).json({ error: "bad request" });
+    return res.status(400).json({error: "bad"});
   }
   const name = req.body.name;
   const firstname = req.body.firstname;
-
   const email = CryptoJS.AES.encrypt(
     req.body.email,
     CryptoJS.enc.Utf8.parse(process.env.CRYPTO_SECRET_TOKEN),
@@ -33,9 +31,10 @@ exports.signup = (req, res, next) => {
       user
         .save()
         .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch((error) => res.status(500).json({ error }));
+        .catch(() => res.status(500).json({message:"error"}));
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json( {message: "bug"} ));
+    
 };
 
 exports.login = (req, res, next) => {
