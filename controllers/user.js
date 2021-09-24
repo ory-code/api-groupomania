@@ -61,7 +61,7 @@ exports.login = (req, res, next) => {
             return res.status(404).json({ error: "identifiants incorrect !" });
           }
           res.status(200).json({
-            userId: user._id,
+            userId: user.id,
             token: jwt.sign({ userId: user.id }, process.env.JWT_TOKEN, {
               expiresIn: "24h",
             }),
