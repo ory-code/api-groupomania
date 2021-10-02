@@ -44,7 +44,7 @@ exports.updateComment = (req, res) => {
 };
 
 exports.deleteComment = (req, res) => {
-  const userId = res.locals.userId
+  const userId = res.locals.userId;
   Comment.destroy({ where: { id: req.params.id, userid: userId } })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
@@ -54,13 +54,14 @@ exports.deleteComment = (req, res) => {
     });
 };
 
-exports.getAllComments = (req,res) => {
-  Comment.findAll()
-  .then((comments)=> {
-    res.status(200).json(comments)
-  })
-  .catch((error)=>{
-    console.log(comments);
-    res.status(404).json(error)
-  })
-}
+exports.getAllComments = (req, res) => {
+  const postId = req.params.id
+  Comment.findAll({ where: { postid: postId } })
+    .then((comments) => {
+      res.status(200).json(comments);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(404).json(error);
+    });
+};
