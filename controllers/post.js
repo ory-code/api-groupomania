@@ -50,13 +50,13 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  const userId = res.local.userdId;
-  Post.destroy({ where: { id: req.params.id, userid: userId } })
+  const id = req.params.id;
+  Post.destroy({ where: { id: id} })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
     })
-    .catch(() => {
-      res.status(500).json({ error: "impossible to delete !" });
+    .catch((error) => {
+      res.status(500).json(console.log(error));
     });
 };
 
