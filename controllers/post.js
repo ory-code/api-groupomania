@@ -23,14 +23,15 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
+  const id = req.params.id;
   Post.findOne({
-    where: { id: req.params.id },
+    where: { id: id },
   })
     .then((post) => {
       res.status(200).json(post);
     })
     .catch((error) => {
-      res.status(404).json(error);
+      res.status(404).json(console.log(error));
     });
 };
 
@@ -51,7 +52,7 @@ exports.updatePost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   const id = req.params.id;
-  Post.destroy({ where: { id: id} })
+  Post.destroy({ where: { id: id } })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
     })
