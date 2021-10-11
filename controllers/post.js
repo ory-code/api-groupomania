@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const Comment = require("../models/comment");
 exports.createPost = (req, res, next) => {
   const userId = res.locals.userId;
   const text = req.body.text;
@@ -28,7 +29,11 @@ exports.getOnePost = (req, res, next) => {
     where: { id: id },
   })
     .then((post) => {
-      res.status(200).json(post);
+      Comment.findAll({
+        where: { postid: id },
+      }).then((comment) => {
+        res.status(200).json({ post, comment });
+      });
     })
     .catch((error) => {
       res.status(404).json(console.log(error));
