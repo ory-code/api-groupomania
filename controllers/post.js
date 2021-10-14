@@ -23,22 +23,7 @@ exports.createPost = (req, res, next) => {
   console.log(post);
 };
 
-exports.getOnePost = (req, res, next) => {
-  const id = req.params.id;
-  Post.findOne({
-    where: { id: id },
-  })
-    .then((post) => {
-      Comment.findAll({
-        where: { postid: id },
-      }).then((comment) => {
-        res.status(200).json({ post, comment });
-      });
-    })
-    .catch((error) => {
-      res.status(404).json(console.log(error));
-    });
-};
+
 
 exports.updatePost = (req, res, next) => {
   const id = req.params.id;
@@ -73,5 +58,22 @@ exports.getAllPost = (req, res, next) => {
     })
     .catch(() => {
       res.status(404).json({ message: "posts introuvable !" });
+    });
+};
+
+exports.getOnePost = (req, res, next) => {
+  const id = req.params.id;
+  Post.findOne({
+    where: { id: id },
+  })
+    .then((post) => {
+      Comment.findAll({
+        where: { postid: id },
+      }).then((comment) => {
+        res.status(200).json({ post, comment });
+      });
+    })
+    .catch((error) => {
+      res.status(404).json(console.log(error));
     });
 };
