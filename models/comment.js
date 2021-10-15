@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const sequelize = require("../db_prog");
+const User = require("./user")
 class Comment extends Model {}
 
 Comment.init(
@@ -15,5 +16,5 @@ Comment.init(
     timestamps: false,
   }
 );
-
+Comment.User = Comment.belongsTo(User)
 module.exports = Comment;

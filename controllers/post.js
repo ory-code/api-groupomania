@@ -1,5 +1,6 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
+const User = require("../models/user");
 exports.createPost = (req, res, next) => {
   const userId = res.locals.userId;
   const text = req.body.text;
@@ -22,8 +23,6 @@ exports.createPost = (req, res, next) => {
     });
   console.log(post);
 };
-
-
 
 exports.updatePost = (req, res, next) => {
   const id = req.params.id;
@@ -52,7 +51,13 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.getAllPost = (req, res, next) => {
-  Post.findAll()
+  Post.findAll({
+    include: [
+      {
+        association: Post.User,
+      },
+    ],
+  })
     .then((post) => {
       res.status(200).json(post);
     })
@@ -69,6 +74,11 @@ exports.getOnePost = (req, res, next) => {
     .then((post) => {
       Comment.findAll({
         where: { postid: id },
+        // include: [
+        //   {
+        //     association: Comment.User,
+        //   },
+        // ],
       }).then((comment) => {
         res.status(200).json({ post, comment });
       });
