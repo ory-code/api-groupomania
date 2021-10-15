@@ -70,15 +70,20 @@ exports.getOnePost = (req, res, next) => {
   const id = req.params.id;
   Post.findOne({
     where: { id: id },
+    include: [
+      {
+        association: Post.User,
+      },
+    ],
   })
     .then((post) => {
       Comment.findAll({
         where: { postid: id },
-        // include: [
-        //   {
-        //     association: Comment.User,
-        //   },
-        // ],
+        include: [
+          {
+            association: Comment.User,
+          },
+        ],
       }).then((comment) => {
         res.status(200).json({ post, comment });
       });
