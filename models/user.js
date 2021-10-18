@@ -10,6 +10,10 @@ User.init(
     name: DataTypes.STRING,
     firstname: DataTypes.STRING,
     password: DataTypes.STRING,
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   },
   {
     sequelize,
