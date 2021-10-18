@@ -55,8 +55,10 @@ exports.getAllPost = (req, res, next) => {
     include: [
       {
         association: Post.User,
+        attributes: ["name", "firstname"],
       },
     ],
+    order: [["id", "DESC"]],
   })
     .then((post) => {
       res.status(200).json(post);
