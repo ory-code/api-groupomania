@@ -1,19 +1,23 @@
 const User = require("../models/user");
 
 exports.getProfil = (req, res, next) => {
-  User.findOne({ where: { id: req.params.id } })
+  const id = req.params.id;
+  User.findOne({
+    where: { id: id },
+    attributes: ["name", "firstname"],
+  })
     .then((Profil) => {
       res.status(200).json(Profil);
     })
-    .catch(() => {
-      res.status(404).json({ error });
+    .catch((error) => {
+      res.status(404).json(console.log(error));
     });
 };
 
 exports.updateProfil = (req, res, next) => {
   const name = req.body.name;
   const firstname = req.body.firstname;
-  console.log(res.locals);
+
   User.update({ name, firstname }, { where: { id: res.locals.userId } })
     .then(() => {
       res.status(200).json({ message: "profil update" });
