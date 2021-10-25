@@ -1,10 +1,13 @@
 const Post = require("../models/post");
+const jwt = require("jsonwebtoken");
 const Comment = require("../models/comment");
-const User = require("../models/user");
+
 exports.createPost = (req, res, next) => {
+  console.log(req.body);
   const userId = res.locals.userId;
   const text = req.body.text;
   const img = req.body.img;
+
   const post = new Post({
     userid: userId,
     text: text,
@@ -25,29 +28,52 @@ exports.createPost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
+  const isAdmin = decodedToken.isAdmin;
   const id = req.params.id;
   const userId = res.locals.userId;
   const text = req.body.text;
   const img = req.body.img;
-  Post.update({ text, img }, { where: { id: id, userid: userId } })
-    .then(() => {
-      res.status(200).json({ message: "post update" });
-    })
-    .catch(() => {
-      res.status(400).json({ message: error });
-    });
-  console.log(req.body);
+console.log(req.body);
+  Post.findByPk(id, {
+    include: [{ association: Post.User, attributes: ["id"] }],
+  }).then((post) => {
+    console.log(isAdmin, post.userid, userId);
+    if (isAdmin === true || userId === post.userid) {
+      Post.update({ text, img }, { where: { id: id, userid: userId } })
+        .then(() => {
+          res.status(200).json({message: "updated with succes !"});
+        })
+        .catch((err) => {
+          res.status(400).json(console.error(err));
+        });
+    }
+  });
 };
 
 exports.deletePost = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
+  const userId = res.locals.userId;
+  const isAdmin = decodedToken.isAdmin;
   const id = req.params.id;
-  Post.destroy({ where: { id: id } })
-    .then(() => {
-      res.status(200).json({ message: "delete with succes !" });
-    })
-    .catch((error) => {
-      res.status(500).json(console.log(error));
-    });
+
+  Post.findByPk(id, {
+    include: [{ association: Post.User, attributes: ["id"] }],
+  }).then((post) => {
+    console.log(isAdmin, post.userid, userId);
+    if (isAdmin === true || userId === post.userid) {
+      Post.destroy({ where: { id: id } })
+
+        .then(() => {
+          res.status(200).json({ message: "delete with succes !" });
+        })
+        .catch((error) => {
+          res.status(500).json(console.log(error));
+        });
+    }
+  });
 };
 
 exports.getAllPost = (req, res, next) => {

@@ -5,7 +5,7 @@ const User = require("../models/user");
 
 exports.signup = (req, res, next) => {
   if (!req.body.password || !req.body.email) {
-    return res.status(400).json({error: "bad"});
+    return res.status(400).json({ error: "bad" });
   }
   const name = req.body.name;
   const firstname = req.body.firstname;
@@ -26,14 +26,14 @@ exports.signup = (req, res, next) => {
         name: name,
         email: email,
         password: hash,
+        isAdmin: 0
       });
       user
         .save()
         .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch(() => res.status(500).json({message:"error"}));
+        .catch(() => res.status(500).json({ message: "error" }));
     })
-    .catch((error) => res.status(500).json( {message: error} ));
-    
+    .catch((error) => res.status(500).json({ message: error }));
 };
 
 exports.login = (req, res, next) => {
@@ -63,9 +63,14 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             isAdmin: user.isAdmin,
             userId: user.id,
-            token: jwt.sign({ userId: user.id }, process.env.JWT_TOKEN, {
-              expiresIn: "24h",
-            }),
+            token: jwt.sign(
+              { userId: user.id, isAdmin: user.isAdmin },
+              process.env.JWT_TOKEN,
+              {
+                expiresIn: "24h",
+              },
+              
+            ),
           });
         })
         .catch((error) => res.status(500).json({ error }));
