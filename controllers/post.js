@@ -98,25 +98,26 @@ exports.updatePost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
   const userId = res.locals.userId;
-  const isAdmin = decodedToken.isAdmin;
+  const isAdmin = res.locals.isAdmin;
   const id = req.params.id;
 
-  Post.findByPk(id, {
-    include: [{ association: Post.User, attributes: ["id"] }],
-  }).then((post) => {
-    console.log(isAdmin, post.userid, userId);
-    if (isAdmin === true || userId === post.userid) {
-      Post.destroy({ where: { id: id } })
+  if (isAdmin === true) {
+    Post.destroy({ where: { id: id } })
 
-        .then(() => {
-          res.status(200).json({ message: "delete with succes !" });
-        })
-        .catch((error) => {
-          res.status(500).json(console.log(error));
-        });
-    }
-  });
+      .then(() => {
+        res.status(200).json({ message: "delete with succes !" });
+      })
+      .catch((error) => {
+        res.status(500).json({ error });
+      });
+  } else {
+    Post.destroy({ where: { id: id , userid: userId } })
+      .then(() => {
+        res.status(200).json({ message: "delete with succes !" });
+      })
+      .catch((error) => {
+        res.status(500).json({ error });
+      });
+  }
 };
