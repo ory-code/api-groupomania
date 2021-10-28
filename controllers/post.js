@@ -3,11 +3,9 @@ const jwt = require("jsonwebtoken");
 const Comment = require("../models/comment");
 
 exports.createPost = (req, res, next) => {
-  console.log(req.body);
   const userId = res.locals.userId;
   const text = req.body.text;
   const img = req.body.img;
-
   const post = new Post({
     userid: userId,
     text: text,
@@ -73,28 +71,30 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
-  const isAdmin = decodedToken.isAdmin;
+  const isAdmin = res.locals.isAdmin;
   const id = req.params.id;
   const userId = res.locals.userId;
   const text = req.body.text;
   const img = req.body.img;
-  console.log(req.body);
-  Post.findByPk(id, {
-    include: [{ association: Post.User, attributes: ["id"] }],
-  }).then((post) => {
-    console.log(isAdmin, post.userid, userId);
-    if (isAdmin === true || userId === post.userid) {
-      Post.update({ text, img }, { where: { id: id, userid: userId } })
-        .then(() => {
-          res.status(200).json({ message: "updated with succes !" });
-        })
-        .catch((err) => {
-          res.status(400).json(console.error(err));
-        });
-    }
-  });
+
+  if (isAdmin === true) {
+    Post.update( {text, img}, { where: { id: id } })
+
+      .then(() => {
+        res.status(200).json({ message: "update with succes !" });
+      })
+      .catch((error) => {
+        res.status(500).json({ error });
+      });
+  } else {
+    Post.update({ text, img }, { where: { id: id, userid: userId } })
+      .then(() => {
+        res.status(200).json({ message: "update with succes !" });
+      })
+      .catch((error) => {
+        res.status(500).json({ error });
+      });
+  }
 };
 
 exports.deletePost = (req, res, next) => {
@@ -112,7 +112,7 @@ exports.deletePost = (req, res, next) => {
         res.status(500).json({ error });
       });
   } else {
-    Post.destroy({ where: { id: id , userid: userId } })
+    Post.destroy({ where: { id: id, userid: userId } })
       .then(() => {
         res.status(200).json({ message: "delete with succes !" });
       })
