@@ -7,7 +7,7 @@ Post.init(
   {
     userid: DataTypes.INTEGER,
     text: DataTypes.STRING,
-    img: DataTypes.STRING,
+    images: DataTypes.STRING,
     date: DataTypes.DATE,
   },
   {

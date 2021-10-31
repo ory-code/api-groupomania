@@ -1,16 +1,16 @@
 const Post = require("../models/post");
-const jwt = require("jsonwebtoken");
 const Comment = require("../models/comment");
 
 exports.createPost = (req, res, next) => {
   const userId = res.locals.userId;
   const text = req.body.text;
-  const img = req.body.img;
+  const images = req.body.images;
   const post = new Post({
     userid: userId,
     text: text,
-    img: img,
+    images: images,
   });
+  console.log(req.body);
   post
     .save()
     .then(() =>
