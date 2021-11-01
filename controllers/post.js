@@ -6,7 +6,7 @@ exports.createPost = (req, res, next) => {
   const text = req.body.text;
   const images = req.body.images;
   const post = new Post({
-    Userid: userId,
+    UserId: userId,
     text: text,
     images: images,
   });
@@ -101,7 +101,7 @@ exports.updatePost = (req, res, next) => {
         res.status(500).json({ error });
       });
   } else {
-    Post.update({ text, images }, { where: { id: id, Userid: userId } })
+    Post.update({ text, images }, { where: { id: id, UserId: userId } })
       .then(() => {
         res.status(200).json({ message: "update with succes !" });
       })
@@ -126,7 +126,7 @@ exports.deletePost = (req, res, next) => {
         res.status(500).json({ error });
       });
   } else {
-    Post.destroy({ where: { id: id, Userid: userId } })
+    Post.destroy({ where: { id: id, UserId: userId } })
       .then(() => {
         res.status(200).json({ message: "delete with succes !" });
       })
