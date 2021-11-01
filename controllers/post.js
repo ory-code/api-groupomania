@@ -4,13 +4,18 @@ const Comment = require("../models/comment");
 exports.createPost = (req, res, next) => {
   const userId = res.locals.userId;
   const text = req.body.text;
-  const images = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  const images = req.body.images;
+
   const post = new Post({
     userid: userId,
     text: text,
     images: images,
   });
-  console.log(req.body.images);
+  if (req.file) {
+    post.images = `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`;
+  }
   post
     .save()
     .then(() =>
@@ -78,7 +83,7 @@ exports.updatePost = (req, res, next) => {
   const images = req.body.images;
 
   if (isAdmin === true) {
-    Post.update( {text, images}, { where: { id: id } })
+    Post.update({ text, images }, { where: { id: id } })
 
       .then(() => {
         res.status(200).json({ message: "update with succes !" });
