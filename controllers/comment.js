@@ -6,7 +6,7 @@ exports.createComment = (req, res) => {
   const content = req.body.content;
   const commentPost = new Comment({
     postid: postId,
-    userid: userId,
+    Userid: userId,
     content: content,
   });
   commentPost
@@ -43,7 +43,7 @@ exports.updateComment = (req, res) => {
   const userId = res.locals.userId;
   const content = req.body.content;
 
-  Comment.update({ content }, { where: { id: id, userid: userId } })
+  Comment.update({ content }, { where: { id: id, Userid: userId } })
     .then(() => {
       res.status(200).json({ message: "comment update" });
     })
@@ -54,7 +54,7 @@ exports.updateComment = (req, res) => {
 
 exports.deleteComment = (req, res) => {
   const userId = res.locals.userId;
-  Comment.destroy({ where: { id: req.params.id, userid: userId } })
+  Comment.destroy({ where: { id: req.params.id, Userid: userId } })
     .then(() => {
       res.status(200).json({ message: "delete with succes !" });
     })
