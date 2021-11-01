@@ -18,11 +18,21 @@ exports.createPost = (req, res, next) => {
   }
   post
     .save()
-    .then(() =>
-      res.status(201).json({
-        message: "post create !",
-      })
-    )
+    .then((value) => {
+      Post
+        .findOne({
+          where: { id: value.id },
+          include: [
+            {
+              association: Post.User,
+              attributes: ["name", "firstname"],
+            },
+          ],
+        })
+        .then((newpost) => {
+          res.status(201).json(newpost);
+        });
+    })
     .catch((error) => {
       console.log(error);
       res.status(500).json({ error });

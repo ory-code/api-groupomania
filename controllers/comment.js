@@ -11,8 +11,17 @@ exports.createComment = (req, res) => {
   });
   commentPost
     .save()
-    .then(() => {
-      res.status(201).json({ message: "Congrat post commented ! " });
+    .then((value) => {
+      Comment.findOne({
+        where: { id: value.id },
+        include: [
+          {
+            association: Comment.User,
+          },
+        ],
+      }).then((newComment) => {
+        res.status(201).json(newComment);
+      });
     })
     .catch((error) => {
       res.status(500).json(error);
@@ -55,8 +64,8 @@ exports.deleteComment = (req, res) => {
 };
 
 exports.getAllComments = (req, res) => {
-  const postId = req.params.id
-  Comment.findAll({ where: { postid: postId } })  
+  const postId = req.params.id;
+  Comment.findAll({ where: { postid: postId } })
     .then((comments) => {
       res.status(200).json(comments);
     })

@@ -5,7 +5,6 @@ const User = require("./user")
 class Post extends Model {}
 Post.init(
   {
-    userid: DataTypes.INTEGER,
     text: DataTypes.STRING,
     images: DataTypes.STRING,
     date: DataTypes.DATE,
