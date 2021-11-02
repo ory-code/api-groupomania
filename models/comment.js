@@ -5,7 +5,7 @@ class Comment extends Model {}
 
 Comment.init(
   {
-    postid: DataTypes.INTEGER,
+    PostId: DataTypes.INTEGER,
     content: DataTypes.TEXT,
     date: DataTypes.DATE,
   },

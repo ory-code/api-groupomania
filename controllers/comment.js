@@ -5,7 +5,7 @@ exports.createComment = (req, res) => {
   const userId = res.locals.userId;
   const content = req.body.content;
   const commentPost = new Comment({
-    postid: postId,
+    PostId: postId,
     UserId: userId,
     content: content,
   });
@@ -65,7 +65,7 @@ exports.deleteComment = (req, res) => {
 
 exports.getAllComments = (req, res) => {
   const postId = req.params.id;
-  Comment.findAll({ where: { postid: postId } })
+  Comment.findAll({ where: { PostId: postId } })
     .then((comments) => {
       res.status(200).json(comments);
     })
